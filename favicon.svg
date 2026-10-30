@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1426"/>
+      <stop offset="100%" stop-color="#021c3d"/>
+    </linearGradient>
+    <linearGradient id="pencilWood" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="50%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="pencilEraser" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f43f5e"/>
+      <stop offset="100%" stop-color="#be123c"/>
+    </linearGradient>
+    <linearGradient id="mcpGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#005cc0"/>
+    </linearGradient>
+    <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#005cc0"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient Glow -->
+  <rect x="24" y="24" width="464" height="464" rx="96" fill="#005cc0" opacity="0.3" filter="url(#glow)"/>
+
+  <!-- Base Squircle Container -->
+  <rect x="26" y="26" width="460" height="460" rx="90" fill="url(#bgGrad)" stroke="#0072ef" stroke-width="4"/>
+
+  <!-- Blueprint / Timeline Grid Lines -->
+  <g stroke="#1e3a6a" stroke-width="1.2" opacity="0.4">
+    <line x1="40" y1="120" x2="472" y2="120"/>
+    <line x1="40" y1="200" x2="472" y2="200"/>
+    <line x1="40" y1="280" x2="472" y2="280"/>
+    <line x1="40" y1="360" x2="472" y2="360"/>
+    <line x1="120" y1="40" x2="120" y2="472"/>
+    <line x1="200" y1="40" x2="200" y2="472"/>
+    <line x1="280" y1="40" x2="280" y2="472"/>
+    <line x1="360" y1="40" x2="360" y2="472"/>
+  </g>
+
+  <!-- Digital AI Arc from Pencil Tip -->
+  <path d="M 125 365 C 160 425, 270 445, 360 410 C 410 390, 440 330, 430 270" 
+        fill="none" stroke="url(#arcGrad)" stroke-width="8" stroke-linecap="round" filter="url(#glow)"/>
+  
+  <!-- Digital Nodes on Arc -->
+  <circle cx="125" cy="365" r="7" fill="#ffffff" stroke="#38bdf8" stroke-width="3"/>
+  <circle cx="215" cy="425" r="5" fill="#34d399" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="315" cy="425" r="5" fill="#38bdf8" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="400" cy="380" r="6" fill="#ffffff" stroke="#0284c7" stroke-width="2"/>
+
+  <!-- Stylized Pencil Graphic -->
+  <g transform="translate(110, 70) rotate(35, 128, 128)" filter="url(#shadow)">
+    <!-- Eraser -->
+    <path d="M 100 20 L 156 20 C 162 20, 166 26, 166 32 L 166 65 L 90 65 L 90 32 C 90 26, 94 20, 100 20 Z" fill="url(#pencilEraser)"/>
+    <!-- Metal Ferrule -->
+    <rect x="88" y="65" width="80" height="30" rx="3" fill="#94a3b8" stroke="#cbd5e1" stroke-width="2"/>
+    <line x1="88" y1="75" x2="168" y2="75" stroke="#475569" stroke-width="2"/>
+    <line x1="88" y1="85" x2="168" y2="85" stroke="#475569" stroke-width="2"/>
+    <!-- Wooden Shaft -->
+    <path d="M 90 95 L 166 95 L 166 240 L 90 240 Z" fill="url(#pencilWood)"/>
+    <!-- Shaft facet lines -->
+    <line x1="115" y1="95" x2="115" y2="240" stroke="#f59e0b" stroke-width="3"/>
+    <line x1="141" y1="95" x2="141" y2="240" stroke="#b45309" stroke-width="3"/>
+    <!-- Sharpened Cone -->
+    <path d="M 90 240 L 166 240 L 128 300 Z" fill="#fde68a"/>
+    <!-- Graphite Lead Tip -->
+    <path d="M 118 284 L 138 284 L 128 300 Z" fill="#1e293b"/>
+  </g>
+
+  <!-- High-Tech MCP Pill Badge -->
+  <g filter="url(#shadow)" transform="translate(285, 390)">
+    <rect x="0" y="0" width="180" height="74" rx="22" fill="url(#mcpGrad)" stroke="#38bdf8" stroke-width="3"/>
+    <!-- Status Connection Dot -->
+    <circle cx="34" cy="37" r="9" fill="#34d399" stroke="#ffffff" stroke-width="2.5"/>
+    <!-- MCP Text -->
+    <text x="64" y="52" font-family="'DejaVu Sans', -apple-system, BlinkMacSystemFont, sans-serif" 
+          font-weight="900" font-size="42" fill="#ffffff" letter-spacing="1.5">MCP</text>
+  </g>
+</svg>
