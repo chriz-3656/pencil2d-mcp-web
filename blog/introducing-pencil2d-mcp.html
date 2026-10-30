@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Introducing Pencil2D MCP v0.2.0 — Blog</title>
+  <title>Introducing Pencil2D MCP v0.3.0 — Blog</title>
   <meta name="description" content="A comprehensive deep dive into the Pencil2D Model Context Protocol server, its 14 tools, and headless animation pipelines.">
   <link rel="icon" type="image/png" href="../assets/pencil_icon.png">
   <link rel="stylesheet" href="../css/style.css">
@@ -26,7 +26,7 @@
         <li><a href="../index.html#tools">14 Tools</a></li>
         <li><a href="../blog.html" style="color: var(--pencil-orange); font-weight: 700;">Blog</a></li>
         <li><a href="../about.html">About</a></li>
-        <li><a href="https://pypi.org/project/pencil2d-mcp/" target="_blank" class="nav-btn">PyPI v0.2.0</a></li>
+        <li><a href="https://pypi.org/project/pencil2d-mcp/" target="_blank" class="nav-btn">PyPI v0.3.0</a></li>
         <li><a href="https://github.com/chriz-3656/pencil2d-mcp" target="_blank" class="nav-btn">GitHub</a></li>
       </ul>
     </div>
@@ -42,7 +42,7 @@
         <span>•</span>
         <span>By chriz-3656</span>
       </div>
-      <h1>Introducing Pencil2D MCP v0.2.0: AI-Powered Traditional 2D Animation</h1>
+      <h1>Introducing Pencil2D MCP v0.3.0: AI-Powered Traditional 2D Animation</h1>
       <p>How an open standard protocol turns desktop animation software into an automated creative pipeline.</p>
     </div>
   </section>
@@ -50,10 +50,15 @@
   <main class="page-container">
     <article class="prose">
       <p>
-        Today, we are thrilled to announce the official release of <strong><code>pencil2d-mcp</code> v0.2.0</strong>, live on <a href="https://pypi.org/project/pencil2d-mcp/" target="_blank">PyPI</a> and open-sourced on <a href="https://github.com/chriz-3656/pencil2d-mcp" target="_blank">GitHub</a>.
+        Today, we are thrilled to announce the official release of <strong><code>pencil2d-mcp</code> v0.3.0</strong>, live on <a href="https://pypi.org/project/pencil2d-mcp/" target="_blank">PyPI</a> and open-sourced on <a href="https://github.com/chriz-3656/pencil2d-mcp" target="_blank">GitHub</a>.
       </p>
       <p>
         The <strong>Model Context Protocol (MCP)</strong> is rapidly becoming the universal standard for how artificial intelligence models interface with external applications, databases, and local file systems. Until now, traditional 2D hand-drawn animation lacked a lightweight, standardized MCP integration. <code>pencil2d-mcp</code> bridges that gap.
+      </p>
+
+      <h2>What's New in v0.3.0: Pure-Python Rendering & Headless Autodetection</h2>
+      <p>
+        With the <strong>v0.3.0 release</strong>, <code>pencil2d-mcp</code> introduces a built-in <strong>pure-Python Pillow fallback compositor</strong>. Animations can now be composited and exported directly to animated GIF, PNG sequences, and MP4 even on machines where the Pencil2D binary is not installed, or inside headless containers without an X server. In addition, the AppImage CLI runner now auto-detects headless environments using <code>xvfb-run</code>, runs GUI processes in detached background sessions, and adds ergonomic API shortcuts (<code>Pencil2DProject.create(...)</code>, <code>validate()</code>, and <code>render_animation</code>).
       </p>
 
       <h2>Why Pencil2D?</h2>

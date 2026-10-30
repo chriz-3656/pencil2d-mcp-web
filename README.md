@@ -2,7 +2,7 @@
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/chriz-3656/pencil2d-mcp-web)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![PyPI](https://img.shields.io/badge/PyPI-v0.2.0-orange.svg)](https://pypi.org/project/pencil2d-mcp/)
+[![PyPI](https://img.shields.io/badge/PyPI-v0.3.0-orange.svg)](https://pypi.org/project/pencil2d-mcp/)
 [![GitHub](https://img.shields.io/badge/GitHub-pencil2d--mcp-blue.svg)](https://github.com/chriz-3656/pencil2d-mcp)
 
 Official showcase website and interactive documentation for **[pencil2d-mcp](https://github.com/chriz-3656/pencil2d-mcp)**, the open-source Model Context Protocol server that connects AI coding agents to Pencil2D traditional 2D animation.

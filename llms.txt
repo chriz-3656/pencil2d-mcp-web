@@ -97,6 +97,7 @@ pencil2d-mcp serve
    - `layer_name` (string, optional)
    - `start_frame` (int, default 1)
    - `step` (int, default 1)
+   - `auto_create_layers` (bool, default true)
 
 5. `pencil2d_add_layer`: Add a new layer (bitmap, vector, sound, or camera) to the timeline.
    - `project_path` (string, required)
@@ -143,39 +144,48 @@ pencil2d-mcp serve
     - `project_path` (string, required)
     - `output_dir` (string, required)
 
-13. `pencil2d_export`: Headlessly render project animations to MP4, animated GIF, WebM, or PNG sequences via the Pencil2D AppImage CLI.
+13. `pencil2d_export`: Headlessly render project animations to MP4, animated GIF, or PNG sequences via AppImage CLI or built-in pure-Python Pillow fallback.
     - `project_path` (string, required)
     - `output_path` (string, required)
     - `width` (int, optional)
     - `height` (int, optional)
+    - `fps` (int, optional)
     - `start_frame` (int, optional)
     - `end_frame` (int, optional)
     - `transparency` (bool, default false)
     - `camera` (string, optional)
+    - `timeout` (int, default 180)
+    - `force_pure_python` (bool, default false)
 
-14. `pencil2d_launch_gui`: Launch the project in the visual Pencil2D GUI for interactive human-in-the-loop drawing.
+14. `pencil2d_launch_gui`: Launch the project in the visual Pencil2D GUI for interactive human-in-the-loop drawing (detached process).
     - `project_path` (string, optional)
 
 ## Python API Usage
 
 ```python
-from pencil2d_mcp import Pencil2DProject, export_project
+from pencil2d_mcp import Pencil2DProject, export_project, render_animation
 from PIL import Image, ImageDraw
 
-# Create project
-project = Pencil2DProject(width=800, height=600, fps=12)
+# Create project using factory method
+project = Pencil2DProject.create("animation.pclx", width=800, height=600, fps=12, layer_names=["Background", "Character"])
 
-# Add frames
-for f in range(1, 10):
+# Add frames (auto-creates layer if missing)
+for f in range(1, 13):
     img = Image.new("RGBA", (800, 600), (0, 0, 0, 0))
     draw = ImageDraw.Draw(img)
-    draw.ellipse([100 + f*50, 300, 160 + f*50, 360], fill=(230, 60, 60, 255))
-    project.add_frame_image("Bitmap Layer", f, img)
+    draw.ellipse([100 + f*40, 300, 160 + f*40, 360], fill=(230, 60, 60, 255))
+    project.add_frame_image("Character", f, img)
 
-# Save and render
+# Save and validate
 project.save("animation.pclx")
-export_project("animation.pclx", "animation.mp4")
-export_project("animation.pclx", "animation.gif")
+report = project.validate()
+print("Project status:", report["status"])
+
+# Render using pure-Python fallback (zero AppImage dependency)
+project.export_gif("preview.gif", fps=12)
+
+# Or render via AppImage CLI / FFmpeg
+export_project("animation.pclx", "animation.mp4", fps=12)
 ```
 
 ## Architecture

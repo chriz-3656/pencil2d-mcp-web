@@ -26,8 +26,8 @@ const TOOLS_DATA = [
     name: "pencil2d_add_frames_batch",
     category: "keyframing",
     badge: "Batch",
-    desc: "Bulk import dozens or hundreds of frames from a directory or structured JSON array in a single low-latency operation.",
-    params: "project_path: string, frames?: array, directory_path?: string, layer_name?: string, start_frame?: int"
+    desc: "Bulk import dozens or hundreds of frames from a directory or structured JSON array with automatic layer creation.",
+    params: "project_path: string, frames?: array, directory_path?: string, layer_name?: string, start_frame?: int, auto_create_layers?: bool"
   },
   {
     name: "pencil2d_add_layer",
@@ -89,8 +89,8 @@ const TOOLS_DATA = [
     name: "pencil2d_export",
     category: "rendering",
     badge: "Render",
-    desc: "Headlessly render project animations to MP4 (H.264), animated GIF, WebM, or PNG sequences via the Pencil2D AppImage CLI.",
-    params: "project_path: string, output_path: string, width?: int, height?: int, start_frame?: int, end_frame?: int"
+    desc: "Headlessly render project animations to MP4 (H.264), animated GIF, or PNG sequences via AppImage CLI or built-in pure-Python fallback.",
+    params: "project_path: string, output_path: string, width?: int, height?: int, fps?: int, force_pure_python?: bool"
   },
   {
     name: "pencil2d_launch_gui",
@@ -133,23 +133,28 @@ const CONFIG_SNIPPETS = {
     }
   }
 }`,
-  python: `from pencil2d_mcp import Pencil2DProject, export_project
+  python: `from pencil2d_mcp import Pencil2DProject, export_project, render_animation
 from PIL import Image, ImageDraw
 
-# Create 800x600 animation @ 12 FPS
-project = Pencil2DProject(width=800, height=600, fps=12)
+# Create 800x600 project with layers via factory method
+project = Pencil2DProject.create("ball.pclx", width=800, height=600, fps=12, layer_names=["Background", "Character"])
 
 # Programmatically draw frames
-for frame_idx in range(1, 10):
+for frame_idx in range(1, 13):
     img = Image.new("RGBA", (800, 600), (0, 0, 0, 0))
     draw = ImageDraw.Draw(img)
-    draw.ellipse([100 + frame_idx*50, 300, 160 + frame_idx*50, 360], fill=(230, 60, 60, 255))
-    project.add_frame_image("Bitmap Layer", frame_idx, img)
+    draw.ellipse([100 + frame_idx*40, 300, 160 + frame_idx*40, 360], fill=(230, 60, 60, 255))
+    project.add_frame_image("Character", frame_idx, img)
 
-# Save .pclx and export to MP4 and GIF
+# Save .pclx and validate integrity
 project.save("ball.pclx")
-export_project("ball.pclx", "ball.mp4")
-export_project("ball.pclx", "ball.gif")`
+print("Validation:", project.validate()["status"])
+
+# Export GIF directly via pure-Python compositor (zero AppImage dependency)
+project.export_gif("ball.gif", fps=12)
+
+# Or render to MP4 via AppImage CLI / FFmpeg
+export_project("ball.pclx", "ball.mp4", fps=12)`
 };
 
 document.addEventListener("DOMContentLoaded", () => {
