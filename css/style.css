@@ -960,6 +960,46 @@ footer {
   margin: 2.5rem 0;
 }
 
+/* Solo Developer Note Banner */
+.dev-note-banner {
+  background: #f0f7ff;
+  border: 1px solid #c7e1ff;
+  border-left: 4px solid var(--pencil-blue);
+  border-radius: 8px;
+  padding: 1.4rem 1.75rem;
+  margin: 3.5rem auto 0;
+  max-width: 860px;
+  text-align: left;
+  box-shadow: 0 2px 10px rgba(0, 92, 192, 0.05);
+}
+
+.dev-note-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  color: var(--pencil-blue);
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+
+.dev-note-text {
+  color: var(--text-body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.dev-note-text a {
+  color: var(--pencil-blue);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.dev-note-text a:hover {
+  color: var(--pencil-orange);
+}
+
 .author-avatar {
   width: 50px;
   height: 50px;

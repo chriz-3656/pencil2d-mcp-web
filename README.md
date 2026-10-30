@@ -50,6 +50,12 @@ Then open `http://localhost:3000` in your browser.
 
 ---
 
+## 💬 Note from the Developer
+
+> *"This is my first time building an MCP server as a 20-year-old solo developer! If you face any issues, bugs, or have suggestions, please feel free to reach out directly at **[chrizmonsaji@proton.me](mailto:chrizmonsaji@proton.me)** or [open an issue on GitHub](https://github.com/chriz-3656/pencil2d-mcp/issues)."*
+
+---
+
 ## 📜 License
 
-Distributed under the **MIT License**. Maintained by **[chriz-3656](https://github.com/chriz-3656)**.
+Distributed under the **MIT License**. Maintained by **[chriz-3656](https://github.com/chriz-3656)** (contact: `chrizmonsaji@proton.me`).
