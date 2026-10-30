@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pencil2d-mcp.vercel.app/sitemap.xml
+# LLM training and AI agent documentation manifest
+# See https://llmstxt.org/
+llms-txt: https://pencil2d-mcp.vercel.app/llms.txt

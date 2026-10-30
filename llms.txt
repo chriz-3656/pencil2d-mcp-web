@@ -1,0 +1,185 @@
+# Pencil2D MCP Server
+
+> A Model Context Protocol (MCP) server and automation toolkit that empowers AI agents to programmatically create, inspect, edit, and render traditional 2D hand-drawn animations using Pencil2D.
+
+- PyPI: https://pypi.org/project/pencil2d-mcp/
+- Repository: https://github.com/chriz-3656/pencil2d-mcp
+- Author: chriz-3656
+- License: MIT
+
+## Quickstart
+
+Install via pip:
+```bash
+pip install pencil2d-mcp
+```
+
+Verify installation and local Pencil2D AppImage detection:
+```bash
+pencil2d-mcp check
+```
+
+Start the MCP stdio JSON-RPC server:
+```bash
+pencil2d-mcp serve
+```
+
+## AI Agent Configuration
+
+### Google Antigravity (`~/.gemini/config/mcp_config.json`)
+```json
+{
+  "mcpServers": {
+    "pencil2d": {
+      "command": "pencil2d-mcp",
+      "args": ["serve"],
+      "env": {
+        "DISPLAY": ":0.0",
+        "PENCIL2D_APPIMAGE": "/path/to/pencil2d-linux-amd64-v0.7.2.AppImage"
+      }
+    }
+  }
+}
+```
+
+### Claude Desktop (`claude_desktop_config.json`)
+```json
+{
+  "mcpServers": {
+    "pencil2d": {
+      "command": "pencil2d-mcp",
+      "args": ["serve"],
+      "env": {
+        "PENCIL2D_APPIMAGE": "/path/to/pencil2d-linux-amd64-v0.7.2.AppImage"
+      }
+    }
+  }
+}
+```
+
+### Cursor / Cline (`.cursor/mcp.json`)
+```json
+{
+  "mcpServers": {
+    "pencil2d": {
+      "command": "pencil2d-mcp",
+      "args": ["serve"]
+    }
+  }
+}
+```
+
+## Available MCP Tools (14 Tools)
+
+1. `pencil2d_inspect`: Inspect canvas dimensions, FPS, total keyframes, layers, and color palette of a .pclx file.
+   - `project_path` (string, required)
+
+2. `pencil2d_create`: Generate a fresh .pclx project file with customizable dimensions, FPS, and initial raster/camera layers.
+   - `project_path` (string, required)
+   - `width` (int, default 800)
+   - `height` (int, default 600)
+   - `fps` (int, default 12)
+   - `layer_names` (string[], default ["Drawing Layer"])
+
+3. `pencil2d_add_frame`: Insert or replace a keyframe image on a bitmap layer.
+   - `project_path` (string, required)
+   - `frame` (int, required)
+   - `image_path` (string, optional)
+   - `base64_data` (string, optional)
+   - `layer_name` (string, optional)
+   - `top_left_x` (int, optional)
+   - `top_left_y` (int, optional)
+
+4. `pencil2d_add_frames_batch`: Batch insert multiple keyframes from a folder or list in a single low-latency operation.
+   - `project_path` (string, required)
+   - `frames` (array of objects, optional)
+   - `directory_path` (string, optional)
+   - `layer_name` (string, optional)
+   - `start_frame` (int, default 1)
+   - `step` (int, default 1)
+
+5. `pencil2d_add_layer`: Add a new layer (bitmap, vector, sound, or camera) to the timeline.
+   - `project_path` (string, required)
+   - `name` (string, required)
+   - `layer_type` ("bitmap" | "vector" | "sound" | "camera", default "bitmap")
+   - `visible` (bool, default true)
+
+6. `pencil2d_remove_layer`: Remove a layer and its keyframes from the project by name or ID.
+   - `project_path` (string, required)
+   - `layer_name_or_id` (string, required)
+
+7. `pencil2d_add_audio`: Embed an audio clip (WAV/MP3) into a sound layer at a specific keyframe.
+   - `project_path` (string, required)
+   - `audio_path` (string, required)
+   - `frame` (int, default 1)
+   - `layer_name` (string, optional)
+
+8. `pencil2d_set_camera`: Program camera keyframe positioning: pan (dx, dy), zoom (scale), and rotation angle.
+   - `project_path` (string, required)
+   - `frame` (int, default 1)
+   - `dx` (number, default 0.0)
+   - `dy` (number, default 0.0)
+   - `scale` (number, default 1.0)
+   - `rotation` (number, default 0.0)
+
+9. `pencil2d_manage_palette`: Add or update custom RGB/RGBA color swatches in the project palette.
+   - `project_path` (string, required)
+   - `color_name` (string, required)
+   - `red` (int, 0-255)
+   - `green` (int, 0-255)
+   - `blue` (int, 0-255)
+   - `alpha` (int, 0-255, default 255)
+
+10. `pencil2d_create_spritesheet`: Pack project frames into a game-ready spritesheet PNG with coordinate grid metadata.
+    - `project_path` (string, required)
+    - `output_image` (string, required)
+    - `layer_name` (string, optional)
+    - `columns` (int, optional)
+
+11. `pencil2d_validate`: Deep project integrity test checking XML syntax, asset references, and frame continuity.
+    - `project_path` (string, required)
+
+12. `pencil2d_extract_frames`: Unpack all individual layer frames into PNG image sequences on disk.
+    - `project_path` (string, required)
+    - `output_dir` (string, required)
+
+13. `pencil2d_export`: Headlessly render project animations to MP4, animated GIF, WebM, or PNG sequences via the Pencil2D AppImage CLI.
+    - `project_path` (string, required)
+    - `output_path` (string, required)
+    - `width` (int, optional)
+    - `height` (int, optional)
+    - `start_frame` (int, optional)
+    - `end_frame` (int, optional)
+    - `transparency` (bool, default false)
+    - `camera` (string, optional)
+
+14. `pencil2d_launch_gui`: Launch the project in the visual Pencil2D GUI for interactive human-in-the-loop drawing.
+    - `project_path` (string, optional)
+
+## Python API Usage
+
+```python
+from pencil2d_mcp import Pencil2DProject, export_project
+from PIL import Image, ImageDraw
+
+# Create project
+project = Pencil2DProject(width=800, height=600, fps=12)
+
+# Add frames
+for f in range(1, 10):
+    img = Image.new("RGBA", (800, 600), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(img)
+    draw.ellipse([100 + f*50, 300, 160 + f*50, 360], fill=(230, 60, 60, 255))
+    project.add_frame_image("Bitmap Layer", f, img)
+
+# Save and render
+project.save("animation.pclx")
+export_project("animation.pclx", "animation.mp4")
+export_project("animation.pclx", "animation.gif")
+```
+
+## Architecture
+
+- **Project Format**: Pencil2D `.pclx` archives are standard ZIP containers containing `main.xml` (using `<!DOCTYPE PencilDocument>`) and `data/` assets (`palette.xml`, frame images `%03d.%03d.png`, vector curves `.vec`, audio files).
+- **Headless Renderer**: Invokes the official Pencil2D Linux AppImage via command-line flags (`-o <output>`, `--camera`, `--width`, `--height`, `--start`, `--end`, `--transparency`), executing headlessly via software rasterization.
+- **Protocol**: Speaks standard Model Context Protocol (MCP) JSON-RPC 2.0 over standard I/O (stdio).

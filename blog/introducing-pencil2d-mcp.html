@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introducing Pencil2D MCP v0.2.0 — Blog</title>
+  <meta name="description" content="A comprehensive deep dive into the Pencil2D Model Context Protocol server, its 14 tools, and headless animation pipelines.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 2 4 4-12 12H6v-4L18 2z"/></svg>
+        Pencil2D <span>MCP</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html#showcase">Showcase</a></li>
+        <li><a href="../index.html#features">Features</a></li>
+        <li><a href="../index.html#tools">14 Tools</a></li>
+        <li><a href="../blog.html" style="color: var(--accent);">Blog</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="https://pypi.org/project/pencil2d-mcp/" target="_blank" class="nav-btn">PyPI v0.2.0</a></li>
+        <li><a href="https://github.com/chriz-3656/pencil2d-mcp" target="_blank" class="nav-btn">GitHub</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="page-container">
+    <div class="page-header">
+      <div class="blog-meta">
+        <span class="blog-tag">Release Announcement</span>
+        <span>•</span>
+        <span>October 30, 2026</span>
+        <span>•</span>
+        <span>By chriz-3656</span>
+      </div>
+      <h1>Introducing Pencil2D MCP v0.2.0: AI-Powered Traditional 2D Animation</h1>
+      <p>How an open standard protocol turns desktop animation software into an automated creative pipeline.</p>
+    </div>
+
+    <article class="prose">
+      <p>
+        Today, we are thrilled to announce the official release of <strong><code>pencil2d-mcp</code> v0.2.0</strong>, live on <a href="https://pypi.org/project/pencil2d-mcp/" target="_blank">PyPI</a> and open-sourced on <a href="https://github.com/chriz-3656/pencil2d-mcp" target="_blank">GitHub</a>.
+      </p>
+      <p>
+        The <strong>Model Context Protocol (MCP)</strong> is rapidly becoming the universal standard for how artificial intelligence models interface with external applications, databases, and local file systems. Until now, traditional 2D hand-drawn animation lacked a lightweight, standardized MCP integration. <code>pencil2d-mcp</code> bridges that gap.
+      </p>
+
+      <h2>Why Pencil2D?</h2>
+      <p>
+        Pencil2D is a beloved, open-source 2D animation suite. It uses clean, standard project structures without proprietary binary lock-in:
+      </p>
+      <ul>
+        <li><code>.pclx</code> files are standard <strong>ZIP archives</strong>.</li>
+        <li>The project timeline, layers, frame mapping, and camera parameters are coordinated by <code>main.xml</code> with a strict <code>&lt;!DOCTYPE PencilDocument&gt;</code> specification.</li>
+        <li>Individual bitmap keyframes are stored as lossless PNG files (<code>001.001.png</code>), vector strokes as XML curves (<code>.vec</code>), and palettes as clean XML nodes (<code>palette.xml</code>).</li>
+        <li>The Pencil2D AppImage contains a bundled, high-performance software rasterizer and an internal FFmpeg plugin that can be run completely <strong>headlessly from the command line</strong>.</li>
+      </ul>
+
+      <h2>What's New in v0.2.0: 14 First-Class Tools</h2>
+      <p>
+        While v0.1.0 introduced baseline project generation and rendering, <strong>v0.2.0 expands the toolset to 14 specialized MCP tools</strong> designed to handle industrial animation pipelines:
+      </p>
+
+      <h3>1. High-Throughput Batch Keyframing</h3>
+      <p>
+        Calling an MCP tool for every single frame introduces round-trip network and token overhead. With <code>pencil2d_add_frames_batch</code>, an agent can ingest an entire directory of PNG drawings or a structured list of keyframes in a single JSON-RPC execution.
+      </p>
+
+      <h3>2. Dynamic Multi-Layer Organization</h3>
+      <p>
+        Professional animators never flatten an entire character into a single layer. With <code>pencil2d_add_layer</code> and <code>pencil2d_remove_layer</code>, agents can partition artwork into <strong>Bitmap</strong>, <strong>Vector</strong>, <strong>Sound</strong>, and <strong>Camera</strong> layers, preserving clean separation between facial expressions, line art, clothing hatching, and backgrounds.
+      </p>
+
+      <h3>3. Audio Synchronization</h3>
+      <p>
+        Using <code>pencil2d_add_audio</code>, AI agents can embed dialogue clips, foley, and soundtrack tracks (<code>.wav</code>, <code>.mp3</code>) directly into sound layers aligned with specific keyframe timestamps.
+      </p>
+
+      <h3>4. Multi-Frame Camera Moves</h3>
+      <p>
+        With <code>pencil2d_set_camera</code>, animators can keyframe smooth viewport zooms, cinematic pans (<code>dx</code>, <code>dy</code>), and rotation angles across the timeline.
+      </p>
+
+      <h3>5. Game Dev Spritesheet Generation</h3>
+      <p>
+        <code>pencil2d_create_spritesheet</code> packs project frames into a single, uniform spritesheet image with coordinate grid metadata—ready for Unity, Godot, or web canvas games.
+      </p>
+
+      <h2 id="case-study">Case Study: The "My First Crush" Prototype</h2>
+      <p>
+        To put <code>pencil2d-mcp</code> to the test, we challenged an autonomous AI agent with designing and animating a complete character prototype: <strong>MC_NARRATOR_01</strong>, a seventh-standard schoolboy from the animation project <em>My First Crush</em>.
+      </p>
+      <p>
+        Within minutes, the AI used our MCP tools to:
+      </p>
+      <ol>
+        <li>Initialize a 4-layer Pencil2D project (<code>Face & Expressions</code>, <code>Head & Hair</code>, <code>Body & Limbs</code>, and <code>Camera Layer</code>).</li>
+        <li>Generate complete model turnaround sheets (Front, 3/4, Side).</li>
+        <li>Produce 6 distinct emotional expressions (Neutral, Happy, Surprised, Shy, Embarrassed, Sad).</li>
+        <li>Construct an 8-second, 96-frame animation prototype consisting of 4 distinct emotional sequences: Idle breathing and blink (2s), Look around (2s), Shy reaction (2s), and Friendly hand wave (2s).</li>
+        <li>Headlessly render the final result to high-definition H.264 MP4 and an optimized animated GIF loop.</li>
+      </ol>
+
+      <div style="text-align: center; margin: 2rem 0;">
+        <img src="../assets/narrator_preview.gif" alt="Rendered Preview" style="max-width: 100%; border-radius: 12px; border: 1px solid var(--card-border);">
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Actual 8-second 12 FPS prototype rendered headlessly by Pencil2D via MCP.</p>
+      </div>
+
+      <h2>Get Started Today</h2>
+      <p>
+        Installing the server takes one command:
+      </p>
+      <pre><code>pip install pencil2d-mcp</code></pre>
+      <p>
+        Read the <a href="../index.html#setup">Client Setup Guide</a> to configure it in Claude Desktop, Google Antigravity, or Cursor, and start animating with your AI pair programmer today!
+      </p>
+
+      <div class="author-box">
+        <div class="author-avatar">C</div>
+        <div class="author-info">
+          <h4>chriz-3656</h4>
+          <p>Published on October 30, 2026 • Lead Developer of <code>pencil2d-mcp</code></p>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a href="../index.html">Home</a>
+      <a href="../about.html">About</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../terms.html">Terms</a>
+      <a href="../privacy.html">Privacy</a>
+      <a href="https://pypi.org/project/pencil2d-mcp/" target="_blank">PyPI</a>
+      <a href="https://github.com/chriz-3656/pencil2d-mcp" target="_blank">GitHub</a>
+    </div>
+    <p class="footer-credits">
+      Distributed under the MIT License • Created & Maintained by <a href="https://github.com/chriz-3656" target="_blank" style="color: var(--accent); text-decoration: none;"><strong>chriz-3656</strong></a>
+    </p>
+  </footer>
+
+</body>
+</html>

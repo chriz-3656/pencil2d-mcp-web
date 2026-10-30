@@ -31,6 +31,9 @@ Click the button below to deploy this website instantly to your own Vercel accou
 - **⚡ 1-Click Code Copying**: Copy `pip install pencil2d-mcp` or client configuration snippets with one click.
 - **📱 Responsive Glassmorphic Dark UI**: Modern slate/zinc styling with ambient lighting effects and mobile-friendly layouts.
 - **🔌 Client Configuration Switcher**: Interactive tabbed snippets for Claude Desktop, Google Antigravity, Cursor / Cline, and Python API.
+- **📖 Comprehensive Subpages**: Dedicated `about.html`, `blog.html` (with full technical release breakdown), `terms.html`, and `privacy.html`.
+- **🤖 AI Agent Discoverability**: Standards-compliant `/llms.txt` and `/llm.txt` for LLM parsers and AI crawlers.
+- **🔍 SEO & Crawling**: Valid `/sitemap.xml` and `/robots.txt` optimized for search indexing.
 
 ---
 

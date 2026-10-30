@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Pencil2D MCP Server</title>
+  <meta name="description" content="Privacy Policy for Pencil2D MCP Server and associated websites.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 2 4 4-12 12H6v-4L18 2z"/></svg>
+        Pencil2D <span>MCP</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#showcase">Showcase</a></li>
+        <li><a href="index.html#features">Features</a></li>
+        <li><a href="index.html#tools">14 Tools</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="https://pypi.org/project/pencil2d-mcp/" target="_blank" class="nav-btn">PyPI v0.2.0</a></li>
+        <li><a href="https://github.com/chriz-3656/pencil2d-mcp" target="_blank" class="nav-btn">GitHub</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="page-container">
+    <div class="page-header">
+      <span class="badge">Data Protection</span>
+      <h1>Privacy Policy</h1>
+      <p>Last updated: October 30, 2026</p>
+    </div>
+
+    <article class="prose">
+      <h2>1. Our Commitment to Zero Telemetry</h2>
+      <p>
+        The <code>pencil2d-mcp</code> project is committed to absolute user privacy. <strong>We do not collect, store, transmit, or monetize any telemetry, analytics, personal information, prompt text, animation artwork, or project data.</strong>
+      </p>
+
+      <h2>2. Local Processing & Transport Architecture</h2>
+      <p>
+        The Model Context Protocol server operates strictly as a local process on your host machine:
+      </p>
+      <ul>
+        <li><strong>Standard I/O Transport (stdio)</strong>: All JSON-RPC 2.0 communication occurs directly through inter-process pipes between your AI client (e.g. Claude Desktop, Antigravity, Cursor) and the local Python server. No network sockets are exposed.</li>
+        <li><strong>Local File Operations</strong>: All animations, frame PNGs, audio clips, and <code>.pclx</code> files are written and read strictly within your local designated directories.</li>
+        <li><strong>No Cloud Phoning Home</strong>: The server never connects to external servers, analytics dashboards, or third-party tracking services during execution.</li>
+      </ul>
+
+      <h2>3. Showcase Website Privacy</h2>
+      <p>
+        This showcase website is a purely static website hosted on <strong>Vercel</strong>:
+      </p>
+      <ul>
+        <li><strong>No Cookies or User Profiling</strong>: We do not set tracking cookies, session cookies, or advertising identifiers.</li>
+        <li><strong>No Third-Party Trackers</strong>: No Google Analytics, Facebook Pixels, or external ad scripts are embedded on this website.</li>
+        <li><strong>Server Access Logs</strong>: Standard, transient HTTP access logs (such as IP addresses and browser user-agent headers) may be automatically processed by our hosting provider (Vercel) to deliver static assets and protect against DDoS attacks in accordance with Vercel's Privacy Policy.</li>
+      </ul>
+
+      <h2>4. Package Registry Disclosures</h2>
+      <p>
+        When you install <code>pencil2d-mcp</code> using <code>pip install pencil2d-mcp</code>, your request is served directly by the Python Package Index (PyPI). PyPI collects basic connection logs in accordance with the <a href="https://policies.python.org/pypi.org/Privacy-Policy/" target="_blank">Python Software Foundation Privacy Policy</a>.
+      </p>
+
+      <h2>5. Policy Updates and Contact</h2>
+      <p>
+        If this policy is revised, updates will be reflected on this page with a revised date. For questions regarding data protection, please open an issue on our GitHub repository: <a href="https://github.com/chriz-3656/pencil2d-mcp/issues" target="_blank">github.com/chriz-3656/pencil2d-mcp/issues</a>.
+      </p>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="blog.html">Blog</a>
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="https://pypi.org/project/pencil2d-mcp/" target="_blank">PyPI</a>
+      <a href="https://github.com/chriz-3656/pencil2d-mcp" target="_blank">GitHub</a>
+    </div>
+    <p class="footer-credits">
+      Distributed under the MIT License • Created & Maintained by <a href="https://github.com/chriz-3656" target="_blank" style="color: var(--accent); text-decoration: none;"><strong>chriz-3656</strong></a>
+    </p>
+  </footer>
+
+</body>
+</html>
