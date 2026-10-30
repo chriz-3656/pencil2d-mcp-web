@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pencil2D MCP Server — AI 2D Animation Toolkit</title>
+  <meta name="description" content="Model Context Protocol (MCP) server that empowers AI agents to programmatically create, inspect, edit, and render traditional 2D animation using Pencil2D.">
+  <meta name="keywords" content="mcp, model context protocol, pencil2d, animation, 2d animation, ai animation, claude, antigravity">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Pencil2D MCP Server">
+  <meta property="og:description" content="An open-source Model Context Protocol (MCP) server for traditional hand-drawn 2D animation.">
+  <meta property="og:image" content="assets/narrator_preview.gif">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Ambient Glow Effects -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 2 4 4-12 12H6v-4L18 2z"/></svg>
+        Pencil2D <span>MCP</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#showcase">Showcase</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#tools">14 Tools</a></li>
+        <li><a href="#setup">Setup</a></li>
+        <li><a href="https://pypi.org/project/pencil2d-mcp/" target="_blank" class="nav-btn">PyPI v0.2.0</a></li>
+        <li><a href="https://github.com/chriz-3656/pencil2d-mcp" target="_blank" class="nav-btn">GitHub</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="badge-wrapper">
+      <span class="badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+        v0.2.0 LIVE ON PYPI & GITHUB
+      </span>
+    </div>
+    <h1>Turn AI Prompts Into Traditional 2D Animation</h1>
+    <p class="hero-tagline">
+      A lightweight Model Context Protocol (MCP) server that empowers Claude Desktop, Google Antigravity, Cursor, and autonomous agents to create, inspect, edit, and render hand-drawn Pencil2D animations headlessly.
+    </p>
+
+    <!-- Quick Install Command -->
+    <div class="install-bar">
+      <span class="install-cmd">$ pip install pencil2d-mcp</span>
+      <button class="copy-btn" onclick="copyToClipboard('pip install pencil2d-mcp', this)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+        Copy
+      </button>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="hero-actions">
+      <a href="#tools" class="btn-primary">
+        Explore 14 Tools
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+      <a href="https://github.com/chriz-3656/pencil2d-mcp" target="_blank" class="btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub Repository
+      </a>
+      <a href="https://pypi.org/project/pencil2d-mcp/" target="_blank" class="btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        PyPI Package
+      </a>
+      <a href="https://vercel.com/new/clone?repository-url=https://github.com/chriz-3656/pencil2d-mcp-web" target="_blank" class="btn-secondary btn-vercel">
+        <svg width="14" height="14" viewBox="0 0 116 100" fill="#fff"><path fill-rule="evenodd" clip-rule="evenodd" d="M57.5 0L115 100H0L57.5 0Z"/></svg>
+        Deploy with Vercel
+      </a>
+    </div>
+  </section>
+
+  <!-- Showcase Gallery Section -->
+  <section id="showcase" class="showcase">
+    <div class="section-header">
+      <span class="section-tag">Production Showcase</span>
+      <h2>Real Hand-Drawn Animations Generated via MCP</h2>
+    </div>
+
+    <div class="showcase-grid">
+      <!-- Showcase Card 1 -->
+      <div class="showcase-card">
+        <div class="media-container">
+          <img src="assets/narrator_preview.gif" alt="MC_NARRATOR_01 Prototype Animation">
+        </div>
+        <div class="showcase-info">
+          <div>
+            <h3>MC_NARRATOR_01: Character Prototype</h3>
+            <p>From the series <em>My First Crush</em>. Created via MCP tools across 4 separated raster layers (Face, Hair, Torso, Camera) with 96 timeline frames at 12 FPS.</p>
+          </div>
+          <div class="tags-list">
+            <span class="tag-chip">4 Raster Layers</span>
+            <span class="tag-chip">12 FPS</span>
+            <span class="tag-chip">96 Frames</span>
+            <span class="tag-chip">Idle / Turn / Shy / Wave</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Showcase Card 2 -->
+      <div class="showcase-card">
+        <div class="media-container">
+          <img src="assets/bouncing_ball.gif" alt="Bouncing Ball Animation">
+        </div>
+        <div class="showcase-info">
+          <div>
+            <h3>Physics Bouncing Ball</h3>
+            <p>Procedural arc keyframes with squash and stretch, ground contact shadow, and programmatic head-to-toe raster frames rendered headlessly directly to GIF and MP4.</p>
+          </div>
+          <div class="tags-list">
+            <span class="tag-chip">Headless Render</span>
+            <span class="tag-chip">MP4 & GIF</span>
+            <span class="tag-chip">Physics Arcs</span>
+            <span class="tag-chip">Auto-Export</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Features Grid -->
+  <section id="features" class="features">
+    <div class="section-header">
+      <span class="section-tag">Key Capabilities</span>
+      <h2>Built for Autonomous Animation Pipelines</h2>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m13 2-2 2.5V8l2-2 7 7-2 2-7-7v-2.5L13 2z"/><path d="m3 21 6.5-6.5"/></svg>
+        </div>
+        <h3>⚡ Zero Heavy Dependencies</h3>
+        <p>Pure Python implementation utilizing standard library and Pillow. No heavyweight GUI frameworks required to read, write, and manipulate .pclx archives.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect width="14" height="14" x="1" y="5" rx="2" ry="2"/></svg>
+        </div>
+        <h3>🎬 Headless Movie Exporter</h3>
+        <p>Uses the Pencil2D AppImage CLI to render animations directly into MP4 (H.264), animated GIF, WebM, and transparent PNG sequences without opening windows.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        </div>
+        <h3>🗂️ Dynamic Multi-Layer Hierarchy</h3>
+        <p>Full control over Bitmap layers, Vector layers, Sound tracks, and Camera viewports. Non-destructively organize facial expressions, line art, and colors.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 22h.5c.5 0 1-.2 1.4-.6.4-.4.6-.9.6-1.4V7.5L14.5 2H6c-.5 0-1 .2-1.4.6C4.2 3 4 3.5 4 4v3"/><polyline points="14 2 14 8 20 8"/><path d="M10 20v-6"/><path d="m7 17 3 3 3-3"/></svg>
+        </div>
+        <h3>📦 Bulk Frame Import</h3>
+        <p>Import dozens or hundreds of frame images from folders or structured arrays in a single low-latency tool call, eliminating single-frame bottlenecks.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+        </div>
+        <h3>🔊 Audio Synchronization</h3>
+        <p>Embed WAV/MP3 voiceovers and audio tracks directly onto sound layers aligned to exact timeline keyframe timings.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <h3>🩺 Integrity & Diagnostics</h3>
+        <p>Comprehensive project validator that inspects XML syntax, checks for missing PNG asset references, and catches frame gaps before rendering.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools Explorer Section -->
+  <section id="tools" class="tools-explorer">
+    <div class="section-header">
+      <span class="section-tag">Interactive Reference</span>
+      <h2>14 Model Context Protocol Tools</h2>
+    </div>
+
+    <!-- Category Filters -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-category="all">All (14)</button>
+      <button class="filter-btn" data-category="creation">Creation</button>
+      <button class="filter-btn" data-category="keyframing">Keyframing</button>
+      <button class="filter-btn" data-category="layers">Layers</button>
+      <button class="filter-btn" data-category="media">Media & Camera</button>
+      <button class="filter-btn" data-category="rendering">Rendering</button>
+      <button class="filter-btn" data-category="inspection">Inspection</button>
+    </div>
+
+    <!-- Dynamic Tools Grid -->
+    <div class="tools-grid" id="tools-container"></div>
+  </section>
+
+  <!-- Configuration Guide -->
+  <section id="setup" class="config-section">
+    <div class="section-header">
+      <span class="section-tag">AI Client Setup</span>
+      <h2>One Config to Connect Your Agent</h2>
+    </div>
+
+    <div class="config-tabs">
+      <button class="tab-btn active" data-tab="claude">Claude Desktop</button>
+      <button class="tab-btn" data-tab="antigravity">Google Antigravity</button>
+      <button class="tab-btn" data-tab="cursor">Cursor / Cline</button>
+      <button class="tab-btn" data-tab="python">Python API</button>
+    </div>
+
+    <div class="config-box">
+      <div class="config-header">
+        <span id="config-path-label">claude_desktop_config.json</span>
+        <button class="copy-btn" onclick="copyConfigSnippet(this)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+          Copy Config
+        </button>
+      </div>
+      <pre class="config-code"><code id="config-code-content">{
+  "mcpServers": {
+    "pencil2d": {
+      "command": "pencil2d-mcp",
+      "args": ["serve"],
+      "env": {
+        "PENCIL2D_APPIMAGE": "/path/to/pencil2d-linux-amd64-v0.7.2.AppImage"
+      }
+    }
+  }
+}</code></pre>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a href="https://pypi.org/project/pencil2d-mcp/" target="_blank">PyPI Package</a>
+      <a href="https://github.com/chriz-3656/pencil2d-mcp" target="_blank">GitHub Repository</a>
+      <a href="https://github.com/chriz-3656/pencil2d-mcp/blob/main/CHANGELOG.md" target="_blank">Changelog</a>
+      <a href="https://github.com/chriz-3656/pencil2d-mcp/issues" target="_blank">Issue Tracker</a>
+      <a href="https://vercel.com/new/clone?repository-url=https://github.com/chriz-3656/pencil2d-mcp-web" target="_blank">Deploy on Vercel</a>
+    </div>
+    <p class="footer-credits">
+      Distributed under the MIT License • Created & Maintained by <a href="https://github.com/chriz-3656" target="_blank" style="color: var(--accent); text-decoration: none;"><strong>chriz-3656</strong></a>
+    </p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
