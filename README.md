@@ -2,7 +2,7 @@
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/chriz-3656/pencil2d-mcp-web)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![PyPI](https://img.shields.io/badge/PyPI-v0.3.0-orange.svg)](https://pypi.org/project/pencil2d-mcp/)
+[![PyPI](https://img.shields.io/badge/PyPI-v0.4.0-orange.svg)](https://pypi.org/project/pencil2d-mcp/)
 [![GitHub](https://img.shields.io/badge/GitHub-pencil2d--mcp-blue.svg)](https://github.com/chriz-3656/pencil2d-mcp)
 
 Official showcase website and interactive documentation for **[pencil2d-mcp](https://github.com/chriz-3656/pencil2d-mcp)**, the open-source Model Context Protocol server that connects AI coding agents to Pencil2D traditional 2D animation.
@@ -27,7 +27,7 @@ Click the button below to deploy this website instantly to your own Vercel accou
 ## 🌟 Website Features
 
 - **🎬 Live Production Showcase**: Embeds real rendered animations (`MC_NARRATOR_01` 8-second 12 FPS prototype and physics bouncing ball).
-- **🛠️ 14-Tool Interactive Explorer**: Category filtering and parameter documentation for all 14 MCP tools.
+- **🛠️ 17-Tool Interactive Explorer**: Category filtering and parameter documentation for all 17 MCP tools.
 - **⚡ 1-Click Code Copying**: Copy `pip install pencil2d-mcp` or client configuration snippets with one click.
 - **📱 Responsive Glassmorphic Dark UI**: Modern slate/zinc styling with ambient lighting effects and mobile-friendly layouts.
 - **🔌 Client Configuration Switcher**: Interactive tabbed snippets for Claude Desktop, Google Antigravity, Cursor / Cline, and Python API.

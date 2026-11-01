@@ -98,6 +98,27 @@ const TOOLS_DATA = [
     badge: "GUI",
     desc: "Launch the project in the visual Pencil2D GUI on your desktop for interactive human-in-the-loop pair drawing.",
     params: "project_path?: string"
+  },
+  {
+    name: "pencil2d_look",
+    category: "inspection",
+    badge: "Vision",
+    desc: "Generate multi-frame contact sheet filmstrips or sampled frames with onion skinning so AI agents visually verify their animation.",
+    params: "project_path: string, mode?: 'strip'|'frame', frames?: int[], frame_count?: int, onion_skin?: bool, output_path?: string"
+  },
+  {
+    name: "pencil2d_generate_animation",
+    category: "creation",
+    badge: "Presets",
+    desc: "Procedurally author complete animations using authentic artistic styles (stickman, anime, pencil_sketch, ghibli, doodle) with kinematic physics.",
+    params: "project_path: string, style: string, action?: string, frame_count?: int, fps?: int, width?: int, height?: int"
+  },
+  {
+    name: "pencil2d_get_guide",
+    category: "inspection",
+    badge: "Guide",
+    desc: "Retrieve domain craft guides on 12 animation principles, style formulas, tapered Bezier strokes, and line-of-action kinematics.",
+    params: "topic: 'animation' | 'styles' | 'drawing_techniques'"
   }
 ];
 

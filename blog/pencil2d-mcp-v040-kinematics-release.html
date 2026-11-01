@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pencil2D MCP v0.4.0: 2-Bone IK, Grounded Gait & Sakuga Combat — Blog</title>
+  <meta name="description" content="Technical breakdown of Pencil2D MCP v0.4.0: solving stiff stickman drawings using 2-bone Inverse Kinematics, grounded gait cycles, and continuous cubic interpolation.">
+  
+  <!-- Open Graph & Social Preview -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Pencil2D MCP v0.4.0: 2-Bone Inverse Kinematics, Grounded Gait & Sakuga Combat">
+  <meta property="og:description" content="Technical breakdown of Pencil2D MCP v0.4.0: solving stiff stickman drawings using 2-bone Inverse Kinematics, grounded gait cycles, and continuous cubic interpolation.">
+  <meta property="og:image" content="../assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="../assets/og-image.png">
+
+  <!-- Favicons & Icons -->
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="shortcut icon" href="../assets/favicon.ico">
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">
+        <img src="../assets/custom_logo.svg" width="38" height="38" alt="Pencil2D MCP Custom Logo">
+        Pencil2D <span>MCP</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html#showcase">Showcase</a></li>
+        <li><a href="../index.html#features">Features</a></li>
+        <li><a href="../index.html#tools">17 Tools</a></li>
+        <li><a href="../blog.html" style="color: var(--pencil-orange); font-weight: 700;">Blog</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="https://pypi.org/project/pencil2d-mcp/" target="_blank" class="nav-btn">PyPI v0.4.0</a></li>
+        <li><a href="https://github.com/chriz-3656/pencil2d-mcp" target="_blank" class="nav-btn">GitHub</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Page Hero Banner -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div class="blog-meta" style="justify-content: center; color: rgba(255,255,255,0.85); margin-bottom: 0.5rem;">
+        <span class="badge" style="background: rgba(255, 107, 53, 0.25); border-color: rgba(255, 107, 53, 0.6); color: #fff;">Major Release</span>
+        <span>•</span>
+        <span>November 1, 2026</span>
+        <span>•</span>
+        <span>By chriz-3656</span>
+      </div>
+      <h1>Pencil2D MCP v0.4.0: 2-Bone Inverse Kinematics, Grounded Gait Locomotion &amp; Sakuga Combat</h1>
+      <p>How we solved stiff AI drawings, ice-skating legs, and teleporting joint movements to produce broadcast-grade 24 FPS 2D animation.</p>
+    </div>
+  </section>
+
+  <main class="page-container">
+    <article class="prose">
+      <h2>The Challenge: Why AI Animation Often Looks "Stiff"</h2>
+      <p>
+        When Large Language Models or Python agents author 2D drawings by default, they frequently fall into a predictable trap: generating rigid lines with uniform angular spacing and sliding positions. Even when stick figures are drawn with articulated segments, characters often end up sliding across the ground like cardboard cutouts, popping abruptly between keyframed poses without weight or inertia.
+      </p>
+      <p>
+        With <strong>Pencil2D MCP v0.4.0</strong>, we set out to eliminate stiffness entirely by integrating the physics and kinematics used in high-tier martial arts animation (such as Hyun's Dojo and Alan Becker) into a mathematical, reproducible Python engine.
+      </p>
+
+      <div style="margin: 2rem 0; text-align: center;">
+        <img src="../assets/fluid_stickman_kinematics_24fps.gif" alt="24 FPS Fluid Stickman Kinematics" style="max-width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+        <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;"><em>24 FPS Fluid Stickman Kinematics (240 Frames) — Featuring grounded gait foot planting, passing leg clearance, and circular Wing Chun hand deflections.</em></p>
+      </div>
+
+      <h2>1. Analytic 2-Bone Inverse Kinematics (IK)</h2>
+      <p>
+        Rather than guessing knee or elbow coordinates through manual offset magic numbers, <code>solve_2bone_ik()</code> computes exact joint angles using trigonometry and the Law of Cosines:
+      </p>
+      <pre><code>cos(α) = (L₁² + d² - L₂²) / (2 · L₁ · d)
+joint_angle = base_angle ± α</code></pre>
+      <p>
+        By clamping target distance to the natural reach boundary (<code>abs(L₁ - L₂) &lt; d &lt; L₁ + L₂</code>), limbs never hyper-extend, pop, or stretch unnaturally. Both thighs and calves maintain constant pixel lengths throughout the entire 10-second sequence.
+      </p>
+
+      <h2>2. Grounded Bipedal Locomotion Engine</h2>
+      <p>
+        Authentic human and character locomotion adheres to distinct phases of ground support:
+      </p>
+      <ul>
+        <li><strong>Stance Phase (60% of stride)</strong>: The supporting foot locks firmly to the ground coordinates (<code>y = ground_y</code>) as the pelvis moves forward over it. This completely eliminates ice-skating foot slides.</li>
+        <li><strong>Swing Phase (40% of stride)</strong>: The swing leg bends at the knee, clears the floor in a smooth parabolic arc, and extends forward heel-first.</li>
+        <li><strong>Double-Frequency Pelvic Bounce</strong>: The pelvis bobs down upon double-support contact and rises during the passing position.</li>
+        <li><strong>Spinal Lean &amp; Arm Counter-Swing</strong>: The torso dynamically tilts forward into the movement vector, while arms swing in counter-phase with natural elbow flexion.</li>
+      </ul>
+
+      <div style="margin: 2rem 0; text-align: center;">
+        <img src="../assets/ultimate_smooth_stickman_fight_24fps.gif" alt="24 FPS Ultimate Sakuga Anime Fight" style="max-width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+        <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;"><em>24 FPS Ultimate Sakuga Combat — Destructible stone pillars, flaming katana, sliced boulders, inverted impact frames, and camera shake.</em></p>
+      </div>
+
+      <h2>3. Continuous Pose Interpolation (Zero Teleporting)</h2>
+      <p>
+        Transitions between actions (standing, walking, running, crouching, and kicking) are blended continuously using cubic Hermite smoothstep curves (<code>s(t) = 3t² - 2t³</code>) across all 15 joints. Every joint trajectory is C¹ continuous—ensuring no single-frame teleport jumps occur.
+      </p>
+
+      <h2>4. Expanded MCP Toolset: 17 Tools Total</h2>
+      <p>
+        Version 0.4.0 also adds three powerful new tools:
+      </p>
+      <ol>
+        <li><strong><code>pencil2d_look</code></strong>: Generates visual contact strips (filmstrips with optional onion skinning) so AI agents verify visual quality headlessly without a graphical desktop.</li>
+        <li><strong><code>pencil2d_generate_animation</code></strong>: Generates stylized animation presets across 5 distinct aesthetics: Stickman, Anime, Pencil Sketch, Studio Ghibli, and Doodle.</li>
+        <li><strong><code>pencil2d_get_guide</code></strong>: Provides on-demand craft instructions directly to the LLM covering the 12 principles of animation, line-of-action kinematics, and timing charts.</li>
+      </ol>
+
+      <hr style="margin: 3rem 0; border: none; border-top: 1px solid #e0e0e0;">
+
+      <div style="background: rgba(255, 107, 53, 0.08); padding: 1.5rem; border-radius: 10px; border-left: 4px solid var(--pencil-orange);">
+        <h4 style="margin-top: 0;">Try It Out Today</h4>
+        <p style="margin-bottom: 0.5rem;">Upgrade to v0.4.0 directly via PyPI:</p>
+        <pre style="margin: 0;"><code>pip install --upgrade pencil2d-mcp</code></pre>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a href="../index.html">Home</a>
+      <a href="../about.html">About</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../terms.html">Terms of Service</a>
+      <a href="../privacy.html">Privacy Policy</a>
+      <a href="https://pypi.org/project/pencil2d-mcp/" target="_blank">PyPI Package</a>
+      <a href="https://github.com/chriz-3656/pencil2d-mcp" target="_blank">GitHub</a>
+      <a href="mailto:chrizmonsaji@proton.me">Contact</a>
+    </div>
+    <p class="footer-credits">
+      Built with ❤️ by a 20-year-old solo developer • <a href="mailto:chrizmonsaji@proton.me" style="color: var(--pencil-blue); text-decoration: none; font-weight: 600;">chrizmonsaji@proton.me</a> • Distributed under the MIT License
+    </p>
+  </footer>
+
+</body>
+</html>

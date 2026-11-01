@@ -1,0 +1,49 @@
+name: Website CI & Asset Validation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate Assets and HTML Integrity
+        run: |
+          python3 -c '
+          import os, sys, glob, re
+
+          print("Verifying HTML files and asset references...")
+          html_files = glob.glob("*.html") + glob.glob("blog/*.html")
+          missing_assets = []
+          for hf in html_files:
+              with open(hf, "r", encoding="utf-8") as f:
+                  content = f.read()
+              # Find referenced assets in src="..." and href="..."
+              refs = re.findall(r"""(?:src|href)=["\x27]([^"\x27#]+)["\x27]""", content)
+              base_dir = os.path.dirname(hf) or "."
+              for r in refs:
+                  if r.startswith("http") or r.startswith("mailto:") or r.startswith("//"):
+                      continue
+                  target = os.path.normpath(os.path.join(base_dir, r))
+                  if not os.path.exists(target):
+                      missing_assets.append((hf, r, target))
+
+          if missing_assets:
+              print(f"FAILED: Found {len(missing_assets)} broken asset references:")
+              for hf, r, target in missing_assets:
+                  print(f"  In {hf}: {r} -> {target} not found")
+              sys.exit(1)
+
+          print(f"SUCCESS: Validated {len(html_files)} HTML files. All local asset links resolve correctly!")
+          '
